@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "camofox-browser",
-    "version": "1.6.0",
+    "version": "1.7.2",
     "description": "Anti-detection browser automation server for AI agents. Accessibility snapshots, element refs, session isolation, cookie import, proxy rotation, and structured logs.",
     "license": {
       "name": "MIT",
@@ -1001,12 +1001,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": {
-                      "type": "boolean"
-                    }
-                  }
+                  "type": "object"
                 }
               }
             }
@@ -1024,549 +1019,12 @@
         }
       }
     },
-    "/tabs/{tabId}/back": {
-      "post": {
-        "tags": [
-          "Navigation"
-        ],
-        "summary": "Go back",
-        "parameters": [
-          {
-            "name": "tabId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "userId"
-                ],
-                "properties": {
-                  "userId": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Navigated back.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": {
-                      "type": "boolean"
-                    },
-                    "url": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Tab not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tabs/{tabId}/forward": {
-      "post": {
-        "tags": [
-          "Navigation"
-        ],
-        "summary": "Go forward",
-        "parameters": [
-          {
-            "name": "tabId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "userId"
-                ],
-                "properties": {
-                  "userId": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Navigated forward.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": {
-                      "type": "boolean"
-                    },
-                    "url": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Tab not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tabs/{tabId}/refresh": {
-      "post": {
-        "tags": [
-          "Navigation"
-        ],
-        "summary": "Refresh page",
-        "parameters": [
-          {
-            "name": "tabId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "userId"
-                ],
-                "properties": {
-                  "userId": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Page refreshed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": {
-                      "type": "boolean"
-                    },
-                    "url": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Tab not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tabs/{tabId}/links": {
-      "get": {
-        "tags": [
-          "Content"
-        ],
-        "summary": "Extract page links",
-        "parameters": [
-          {
-            "name": "tabId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Links extracted.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "links": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "text": {
-                            "type": "string"
-                          },
-                          "href": {
-                            "type": "string"
-                          },
-                          "ref": {
-                            "type": "string"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Tab not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tabs/{tabId}/downloads": {
-      "get": {
-        "tags": [
-          "Content"
-        ],
-        "summary": "List tab downloads",
-        "parameters": [
-          {
-            "name": "tabId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Downloads list.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "downloads": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "filename": {
-                            "type": "string"
-                          },
-                          "url": {
-                            "type": "string"
-                          },
-                          "state": {
-                            "type": "string"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Tab not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tabs/{tabId}/images": {
-      "get": {
-        "tags": [
-          "Content"
-        ],
-        "summary": "Extract page images",
-        "parameters": [
-          {
-            "name": "tabId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Images extracted.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "images": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "src": {
-                            "type": "string"
-                          },
-                          "alt": {
-                            "type": "string"
-                          },
-                          "width": {
-                            "type": "integer"
-                          },
-                          "height": {
-                            "type": "integer"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Tab not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tabs/{tabId}/screenshot": {
-      "get": {
-        "tags": [
-          "Content"
-        ],
-        "summary": "Take a screenshot",
-        "description": "Returns a base64-encoded PNG screenshot.",
-        "parameters": [
-          {
-            "name": "tabId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Screenshot.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "screenshot": {
-                      "type": "object",
-                      "properties": {
-                        "data": {
-                          "type": "string"
-                        },
-                        "mimeType": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Tab not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tabs/{tabId}/stats": {
-      "get": {
-        "tags": [
-          "Tabs"
-        ],
-        "summary": "Tab statistics",
-        "description": "Returns tab metadata including URL, tool call count, visited URLs, download/failure counts.",
-        "parameters": [
-          {
-            "name": "tabId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Tab stats.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "tabId": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "toolCalls": {
-                      "type": "integer"
-                    },
-                    "visitedUrls": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "downloadCount": {
-                      "type": "integer"
-                    },
-                    "consecutiveFailures": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Tab not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tabs/{tabId}/evaluate": {
+    "/tabs/{tabId}/eval": {
       "post": {
         "tags": [
           "Interaction"
         ],
-        "summary": "Evaluate JavaScript in tab",
-        "description": "Runs arbitrary JS in the page context and returns the result.",
+        "summary": "Evaluate JavaScript in the page",
         "parameters": [
           {
             "name": "tabId",
@@ -1585,15 +1043,15 @@
                 "type": "object",
                 "required": [
                   "userId",
-                  "expression"
+                  "code"
                 ],
                 "properties": {
                   "userId": {
                     "type": "string"
                   },
-                  "expression": {
+                  "code": {
                     "type": "string",
-                    "description": "JavaScript expression to evaluate."
+                    "description": "JavaScript code to execute."
                   }
                 }
               }
@@ -1602,17 +1060,11 @@
         },
         "responses": {
           "200": {
-            "description": "Evaluation result.",
+            "description": "Execution result.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": {
-                      "type": "boolean"
-                    },
-                    "result": {}
-                  }
+                  "type": "object"
                 }
               }
             }
@@ -1640,188 +1092,13 @@
         }
       }
     },
-    "/tabs/{tabId}/extract": {
-      "post": {
+    "/tabs/{tabId}/screenshot": {
+      "get": {
         "tags": [
           "Content"
         ],
-        "summary": "Structured data extraction via JSON Schema",
-        "description": "Extracts structured data from the current page using a JSON Schema whose properties\ncarry `x-ref` hints pointing at snapshot element refs (e.g. `e1`, `e2`).  \nCall `GET /tabs/{tabId}/snapshot` first to populate the ref table.\n",
-        "parameters": [
-          {
-            "name": "tabId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "userId",
-                  "schema"
-                ],
-                "properties": {
-                  "userId": {
-                    "type": "string"
-                  },
-                  "schema": {
-                    "type": "object",
-                    "description": "JSON Schema with `type: \"object\"` and a `properties` map.  \nEach property may include `x-ref` (a snapshot element ref) and an optional\n`type` (`string`, `number`, `integer`, `boolean`).\n",
-                    "required": [
-                      "type",
-                      "properties"
-                    ],
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "enum": [
-                          "object"
-                        ]
-                      },
-                      "properties": {
-                        "type": "object",
-                        "additionalProperties": {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "type": "string",
-                              "enum": [
-                                "string",
-                                "number",
-                                "integer",
-                                "boolean",
-                                "object",
-                                "null"
-                              ]
-                            },
-                            "x-ref": {
-                              "type": "string",
-                              "description": "Snapshot element ref (e.g. `e1`)."
-                            }
-                          }
-                        }
-                      },
-                      "required": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        },
-                        "description": "Property names that must resolve to a non-null value."
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Extraction succeeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": {
-                      "type": "boolean"
-                    },
-                    "data": {
-                      "type": "object",
-                      "description": "Extracted key-value pairs matching the input schema."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Missing userId, missing schema, or invalid schema.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Tab not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "No refs available — call snapshot first.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    },
-                    "snapshot": {
-                      "type": "string",
-                      "nullable": true
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Extraction failed (e.g. required ref not found).",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": {
-                      "type": "boolean"
-                    },
-                    "error": {
-                      "type": "string"
-                    },
-                    "snapshot": {
-                      "type": "string",
-                      "nullable": true
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tabs/{tabId}": {
-      "delete": {
-        "tags": [
-          "Tabs"
-        ],
-        "summary": "Close a tab",
+        "summary": "Screenshot of the page",
+        "description": "Returns PNG screenshot of the current page.",
         "parameters": [
           {
             "name": "tabId",
@@ -1840,6 +1117,177 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Screenshot as PNG.",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Tab not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tabs/{tabId}/links": {
+      "get": {
+        "tags": [
+          "Content"
+        ],
+        "summary": "Extract all links from the page",
+        "parameters": [
+          {
+            "name": "tabId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of links.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "links": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Tab not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tabs/{tabId}/images": {
+      "get": {
+        "tags": [
+          "Content"
+        ],
+        "summary": "Extract all images from the page",
+        "parameters": [
+          {
+            "name": "tabId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of images.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "images": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Tab not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tabs/{tabId}/close": {
+      "post": {
+        "tags": [
+          "Tabs"
+        ],
+        "summary": "Close a tab",
+        "parameters": [
+          {
+            "name": "tabId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Tab closed.",
@@ -1869,470 +1317,27 @@
         }
       }
     },
-    "/tabs/group/{listItemId}": {
-      "delete": {
-        "tags": [
-          "Tabs"
-        ],
-        "summary": "Close all tabs in a group",
-        "parameters": [
-          {
-            "name": "listItemId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Group closed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": {
-                      "type": "boolean"
-                    },
-                    "closed": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Session not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sessions/{userId}/traces": {
-      "get": {
-        "tags": [
-          "Sessions"
-        ],
-        "summary": "List trace files",
-        "description": "Returns all Playwright trace zip files for the given user session, sorted newest first.",
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Session owner identifier."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Trace list.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "traces": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "filename": {
-                            "type": "string"
-                          },
-                          "sizeBytes": {
-                            "type": "integer"
-                          },
-                          "createdAt": {
-                            "type": "number"
-                          },
-                          "modifiedAt": {
-                            "type": "number"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sessions/{userId}/traces/{filename}": {
-      "get": {
-        "tags": [
-          "Sessions"
-        ],
-        "summary": "Download a trace file",
-        "description": "Streams a Playwright trace zip for viewing in trace.playwright.dev.",
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Session owner identifier."
-          },
-          {
-            "name": "filename",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Trace zip filename."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Trace zip stream.",
-            "content": {
-              "application/zip": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid filename.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Trace not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Sessions"
-        ],
-        "summary": "Delete a trace file",
-        "description": "Removes a specific Playwright trace zip from the server.",
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Session owner identifier."
-          },
-          {
-            "name": "filename",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Trace zip filename."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Trace deleted.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid filename.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Trace not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sessions/{userId}": {
-      "delete": {
-        "tags": [
-          "Sessions"
-        ],
-        "summary": "Destroy a user session",
-        "description": "Closes all tabs and cleans up state for the given userId.",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Session destroyed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": {
-                      "type": "boolean"
-                    },
-                    "closed": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Session not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "tags": [
-          "System"
-        ],
-        "summary": "Server status",
-        "description": "Returns basic server liveness and browser state.",
-        "responses": {
-          "200": {
-            "description": "Server status.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "ok": {
-                      "type": "boolean"
-                    },
-                    "enabled": {
-                      "type": "boolean"
-                    },
-                    "running": {
-                      "type": "boolean"
-                    },
-                    "engine": {
-                      "type": "string"
-                    },
-                    "browserConnected": {
-                      "type": "boolean"
-                    },
-                    "browserRunning": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tabs/open": {
+    "/browser/start": {
       "post": {
         "tags": [
-          "Legacy"
+          "Browser"
         ],
-        "summary": "Open tab (OpenClaw format)",
-        "deprecated": true,
+        "summary": "Start the browser",
+        "description": "Initialize and start the browser instance.",
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "userId",
-                  "url"
-                ],
                 "properties": {
-                  "userId": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "listItemId": {
-                    "type": "string"
+                  "headless": {
+                    "type": "boolean"
                   }
                 }
               }
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "Tab opened.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/start": {
-      "post": {
-        "tags": [
-          "Browser"
-        ],
-        "summary": "Start browser",
-        "description": "Ensures the browser process is running. Idempotent.",
         "responses": {
           "200": {
             "description": "Browser started.",
@@ -2343,21 +1348,8 @@
                   "properties": {
                     "ok": {
                       "type": "boolean"
-                    },
-                    "profile": {
-                      "type": "string"
                     }
                   }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Launch failed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -2365,18 +1357,12 @@
         }
       }
     },
-    "/stop": {
+    "/browser/stop": {
       "post": {
         "tags": [
           "Browser"
         ],
-        "summary": "Stop browser",
-        "description": "Stops the browser and closes all sessions. Requires x-admin-key header.",
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+        "summary": "Stop the browser",
         "responses": {
           "200": {
             "description": "Browser stopped.",
@@ -2387,24 +1373,8 @@
                   "properties": {
                     "ok": {
                       "type": "boolean"
-                    },
-                    "stopped": {
-                      "type": "boolean"
-                    },
-                    "profile": {
-                      "type": "string"
                     }
                   }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -2412,151 +1382,44 @@
         }
       }
     },
-    "/navigate": {
+    "/sessions/{userId}/teardown": {
       "post": {
         "tags": [
-          "Legacy"
+          "Sessions"
         ],
-        "summary": "Navigate (OpenClaw format)",
-        "description": "Navigate with targetId in body instead of path param.",
-        "deprecated": true,
+        "summary": "Teardown a user session",
+        "description": "Close all tabs and cleanup resources for a user.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": [
-                  "userId",
-                  "url"
-                ],
-                "properties": {
-                  "userId": {
-                    "type": "string"
-                  },
-                  "targetId": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  }
-                }
+                "type": "object"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Navigation result.",
+            "description": "Session torn down.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Tab not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/snapshot": {
-      "get": {
-        "tags": [
-          "Legacy"
-        ],
-        "summary": "Snapshot (OpenClaw format)",
-        "description": "Snapshot with targetId/userId as query params.",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "targetId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "format",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "includeScreenshot",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "true",
-                "false"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Snapshot.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Tab not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  }
                 }
               }
             }
@@ -2569,56 +1432,21 @@
         "tags": [
           "Legacy"
         ],
-        "summary": "Combined action (OpenClaw format)",
-        "description": "Routes to click/type/scroll/press/etc based on \"kind\" parameter.",
+        "summary": "Legacy action endpoint",
         "deprecated": true,
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": [
-                  "userId",
-                  "kind"
-                ],
-                "properties": {
-                  "userId": {
-                    "type": "string"
-                  },
-                  "kind": {
-                    "type": "string",
-                    "description": "Action kind: click, type, scroll, press, key, select_option, drag, hover, screenshot, wait, back, forward."
-                  },
-                  "targetId": {
-                    "type": "string"
-                  },
-                  "ref": {
-                    "type": "string"
-                  },
-                  "selector": {
-                    "type": "string"
-                  },
-                  "text": {
-                    "type": "string"
-                  },
-                  "key": {
-                    "type": "string"
-                  },
-                  "direction": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  }
-                }
+                "type": "object"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Action result.",
+            "description": "Legacy response.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2626,23 +1454,95 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Bad request.",
+          }
+        }
+      }
+    },
+    "/navigate": {
+      "post": {
+        "tags": [
+          "Legacy"
+        ],
+        "summary": "Legacy navigate endpoint",
+        "deprecated": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Legacy response.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object"
                 }
               }
             }
-          },
-          "404": {
-            "description": "Tab not found.",
+          }
+        }
+      }
+    },
+    "/snapshot": {
+      "get": {
+        "tags": [
+          "Legacy"
+        ],
+        "summary": "Legacy snapshot endpoint",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "tabId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Legacy response.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tabs/open": {
+      "post": {
+        "tags": [
+          "Legacy"
+        ],
+        "summary": "Legacy open tab endpoint",
+        "deprecated": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Legacy response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
                 }
               }
             }
